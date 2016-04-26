@@ -1,13 +1,13 @@
 
 import UIKit
 
-func emojiFlag(countryCode countryCode: String) -> Int {
+func emojiFlag(countryCode countryCode: String) -> String {
     var string = ""
     var country = countryCode.uppercaseString
     for uS in country.unicodeScalars {
         string.append(UnicodeScalar(127397 + uS.value))
     }
-    return string.characters.count
+    return string
 }
 
 
