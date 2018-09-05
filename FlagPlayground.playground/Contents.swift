@@ -1,23 +1,22 @@
 
 import UIKit
 
-func emojiFlag(countryCode countryCode: String) -> String {
-    var string = ""
-    var country = countryCode.uppercaseString
-    for uS in country.unicodeScalars {
-        string.append(UnicodeScalar(127397 + uS.value))
+func emojiFlag(regionCode: String) -> String? {
+        let code = regionCode.uppercased()
+
+        guard Locale.isoRegionCodes.contains(code) else {
+            return nil
+        }
+
+        var flagString = ""
+        for s in code.unicodeScalars {
+            guard let scalar = UnicodeScalar(127397 + s.value) else {
+                continue
+            }
+            flagString.append(String(scalar))
+        }
+        return flagString
     }
-    return string
-}
 
-
-emojiFlag(countryCode: "gb")
-emojiFlag(countryCode: "im")
-emojiFlag(countryCode: "us")
-emojiFlag(countryCode: "es")
-emojiFlag(countryCode: "it")
-emojiFlag(countryCode: "se")
-emojiFlag(countryCode: "nz")
-emojiFlag(countryCode: "de")
-emojiFlag(countryCode: "eu")
-emojiFlag(countryCode: "en")
+// Demo
+Locale.isoRegionCodes.forEach { print($0 + ": " + emojiFlag(regionCode: $0)!) }
